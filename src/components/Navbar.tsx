@@ -1,9 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
-import { auth, signIn, signOut } from "../../../auth"
+import { auth, signIn, signOut } from "../../auth"
 
 const Navbar = async () => {
     const session = await auth()
+
+    const userLoggedIn = session && session?.user
 
     const login = async () => {
         'use server'
@@ -25,7 +27,7 @@ const Navbar = async () => {
                 </Link>
 
                 <div className="flex items-center gap-5">
-                    {session && session?.user ? (
+                    {userLoggedIn ? (
                         <>
                             <Link href="/startup/create">
                                 <span>Create</span>
